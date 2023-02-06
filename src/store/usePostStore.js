@@ -6,3 +6,9 @@ const usePostStore = create((set) => ({
 }));
 
 export const usePosts = () => usePostStore((state) => state.posts);
+
+export const useGetPostById = (id) => {
+  const posts = usePostStore((state) => state.posts);
+
+  return posts.find((post) => post.id === id);
+};
