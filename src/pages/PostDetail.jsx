@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetPostById } from '../store/usePostStore';
 
 const PostDetail = () => {
+  const navigate = useNavigate();
   // get id from route params
   const { id } = useParams();
   //   get post by current id
@@ -10,6 +11,10 @@ const PostDetail = () => {
   if (!post) {
     return <h2>Post Not Found!</h2>;
   }
+
+  const handleUpdate = () => {
+    navigate(`/posts/update/${id}`);
+  };
 
   return (
     <div className='card'>
@@ -21,7 +26,9 @@ const PostDetail = () => {
         <span>Category: {post.category}</span>
       </div>
       <div className='card-actions'>
-        <button className='btn btn-info'>Edit</button>
+        <button className='btn btn-info' onClick={handleUpdate}>
+          Edit
+        </button>
         <button className='btn btn-danger'>Delete</button>
       </div>
     </div>

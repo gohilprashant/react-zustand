@@ -4,8 +4,8 @@ import usePostForm from '../hooks/usePostForm';
 import { usePostActions } from '../store/usePostStore';
 
 const AddPost = () => {
-  const { addPost } = usePostActions();
   const navigate = useNavigate();
+  const { addPost: addNewPost } = usePostActions();
   const { formData, updateFormData, validate, errors, setErrors } = usePostForm({
     title: '',
     detail: '',
@@ -17,7 +17,7 @@ const AddPost = () => {
     const newErrors = validate();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      addPost({ title: formData.title, body: formData.detail, category: formData.cateogry });
+      addNewPost({ title: formData.title, body: formData.detail, category: formData.cateogry });
       navigate('/');
     }
   };

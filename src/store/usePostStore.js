@@ -2,15 +2,20 @@ import { create } from 'zustand';
 import { posts } from '../utils/defaultValues';
 import { v4 as uuid } from 'uuid';
 
-const usePostStore = create((set) => ({
+const usePostStore = create((set, get) => ({
   posts: posts,
   // create object containing all actions
   actions: {
-    addPost: (postData) =>
-      set((state) => {
-        const newPost = { ...postData, id: uuid() };
-        return { posts: [newPost, ...state.posts] };
-      }),
+    addPost: (postData) => {
+      const newPost = { ...postData, id: uuid() };
+      return set((state) => ({ posts: [newPost, ...state.posts] }));
+    },
+    updatePost: (postData) => {
+      const updatedPosts = get().posts.map((post) => {
+        return post.id === postData.id ? postData : post;
+      });
+      return set({ posts: updatedPosts });
+    },
   },
 }));
 
