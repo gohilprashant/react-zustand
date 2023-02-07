@@ -34,7 +34,7 @@ const UpdatePost = () => {
         alert(`You haven't updated anything in this post`);
       } else {
         updateCurPost({ id, title, body, category });
-        navigate('/');
+        navigate(`/posts/${id}`);
       }
     }
   };

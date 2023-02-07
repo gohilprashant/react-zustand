@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetPostById } from '../store/usePostStore';
+import { useGetPostById, usePostActions } from '../store/usePostStore';
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -8,12 +8,19 @@ const PostDetail = () => {
   //   get post by current id
   const post = useGetPostById(id);
 
+  const { removePost } = usePostActions();
+
   if (!post) {
     return <h2>Post Not Found!</h2>;
   }
 
   const handleUpdate = () => {
     navigate(`/posts/update/${id}`);
+  };
+
+  const handleRemove = () => {
+    removePost(id);
+    navigate('/');
   };
 
   return (
@@ -29,7 +36,9 @@ const PostDetail = () => {
         <button className='btn btn-info' onClick={handleUpdate}>
           Edit
         </button>
-        <button className='btn btn-danger'>Delete</button>
+        <button className='btn btn-danger' onClick={handleRemove}>
+          Delete
+        </button>
       </div>
     </div>
   );

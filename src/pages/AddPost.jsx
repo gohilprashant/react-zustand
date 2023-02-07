@@ -17,7 +17,8 @@ const AddPost = () => {
     const newErrors = validate();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      addNewPost({ title: formData.title, body: formData.detail, category: formData.cateogry });
+      console.log(formData);
+      addNewPost({ title: formData.title, body: formData.detail, category: formData.category });
       navigate('/');
     }
   };

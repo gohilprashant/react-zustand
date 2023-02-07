@@ -16,6 +16,10 @@ const usePostStore = create((set, get) => ({
       });
       return set({ posts: updatedPosts });
     },
+    removePost: (id) => {
+      const filteredPosts = get().posts.filter((post) => post.id !== id);
+      return set({ posts: filteredPosts });
+    },
   },
 }));
 
