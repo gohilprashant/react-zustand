@@ -1,7 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import PostForm from '../components/post/PostForm';
 import usePostForm from '../hooks/usePostForm';
+import { usePostActions } from '../store/usePostStore';
 
 const AddPost = () => {
+  const { addPost } = usePostActions();
+  const navigate = useNavigate();
   const { formData, updateFormData, validate, errors, setErrors } = usePostForm({
     title: '',
     detail: '',
@@ -13,7 +17,8 @@ const AddPost = () => {
     const newErrors = validate();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      // send post data
+      addPost({ title: formData.title, body: formData.detail, category: formData.cateogry });
+      navigate('/');
     }
   };
 
