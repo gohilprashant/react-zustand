@@ -8,17 +8,17 @@ const usePostStore = create((set, get) => ({
   actions: {
     addPost: (postData) => {
       const newPost = { ...postData, id: uuid() };
-      return set((state) => ({ posts: [newPost, ...state.posts] }));
+      set((state) => ({ posts: [newPost, ...state.posts] }));
     },
     updatePost: (postData) => {
       const updatedPosts = get().posts.map((post) => {
         return post.id === postData.id ? postData : post;
       });
-      return set({ posts: updatedPosts });
+      set({ posts: updatedPosts });
     },
     removePost: (id) => {
       const filteredPosts = get().posts.filter((post) => post.id !== id);
-      return set({ posts: filteredPosts });
+      set({ posts: filteredPosts });
     },
   },
 }));
