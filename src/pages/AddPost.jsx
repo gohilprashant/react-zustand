@@ -6,19 +6,15 @@ import { usePostActions } from '../store/usePostStore';
 const AddPost = () => {
   const navigate = useNavigate();
   const { addPost: addNewPost } = usePostActions();
-  const { formData, updateFormData, validate, errors, setErrors } = usePostForm({
-    title: '',
-    detail: '',
-    category: 'Sports',
-  });
+  const { formData, updateFormData, validate, errors, setErrors } = usePostForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = validate();
     setErrors(newErrors);
     if (Object.keys(newErrors).length === 0) {
-      console.log(formData);
-      addNewPost({ title: formData.title, body: formData.detail, category: formData.category });
+      const { title, detail: body, category } = formData;
+      addNewPost({ title, body, category });
       navigate('/');
     }
   };
